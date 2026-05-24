@@ -2,7 +2,7 @@
 
 > Production-grade Claude Code / Cursor / Codex CLI / Gemini CLI skills for engineers building healthcare and other regulated software.
 
-**17 skills. Real incidents. Plug-and-play.**
+**25 skills. Real incidents. Plug-and-play.**
 
 Every skill in this pack maps to a documented production incident from real healthcare engineering — Alembic migration crashes, ngrok URLs baked into voice agents, PHI silently leaking into structlog, JSONB schemas drifting from their Pydantic models, multi-tenant queries missing `client_id` predicates. The skills encode the fix so you (or your AI pair) never re-discover the same trap.
 
@@ -28,7 +28,7 @@ That's it. Open a new chat in your IDE and ask:
 
 ---
 
-## The 17 skills
+## The 25 skills
 
 ### Tier 0 — Universal, drop-in
 | Skill | What it does |
@@ -59,6 +59,19 @@ These are skills you didn't know you needed until a 2 AM Slack notification taug
 | [`async-blocking-lint`](skills/async-blocking-lint/SKILL.md) | Flag `requests` / `urllib` calls inside `async def`. | Event loop blocked under call-burst load. |
 | [`secrets-placeholder`](skills/secrets-placeholder/SKILL.md) | Scaffold placeholder-token + Secret Manager substitution. | 6× ngrok URLs baked into committed production agent JSON. |
 | [`synthea-fixture`](skills/synthea-fixture/SKILL.md) | Generate frozen Synthea-style FHIR bundles for deterministic evals. | Eval suite drifted because patient fixtures regenerated each run. |
+
+### Tier 3 — v0.2 additions
+Drawn from the same incident backlog plus the most-asked-for healthcare workflows.
+| Skill | What it does |
+|---|---|
+| [`smart-oauth-scaffold`](skills/smart-oauth-scaffold/SKILL.md) | Scaffold SMART on FHIR launch + Fernet-encrypted token storage + refresh-on-401 for Epic / Cerner / Athena. |
+| [`prior-auth-fhir`](skills/prior-auth-fhir/SKILL.md) | Build Da Vinci PAS / CRD / DTR payloads — `CoverageEligibilityRequest`, PAS `Claim`, `QuestionnaireResponse`. |
+| [`route-fatness`](skills/route-fatness/SKILL.md) | Lint fat route handlers — line count, external calls, DB queries, branch depth — and suggest the service-layer extraction. |
+| [`clinic-config-extract`](skills/clinic-config-extract/SKILL.md) | Find hardcoded clinic / tenant slugs across the codebase and refactor them into a single YAML config. |
+| [`migration-bisect`](skills/migration-bisect/SKILL.md) | `git bisect` for Alembic migrations: ephemeral DB, apply one at a time, smoke probe between each. |
+| [`webhook-verify`](skills/webhook-verify/SKILL.md) | Constant-time HMAC verification for Retell / Vapi / Twilio / Stripe / Slack / GitHub webhooks with replay-window enforcement. |
+| [`phi-log-filter`](skills/phi-log-filter/SKILL.md) | Continuous PHI-scrubbing processor for structlog / Python logging / loguru / winston / pino — every log call gets the scrub. |
+| [`specialty-scaffold`](skills/specialty-scaffold/SKILL.md) | Scaffold a new clinical specialty (cardiology / ENT / GI / derm / peds / …) on top of a shared base — overrides only, no copy-paste. |
 
 ---
 

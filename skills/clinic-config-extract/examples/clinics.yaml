@@ -1,0 +1,33 @@
+clinics:
+  redding:
+    display_name: "Redding Internal Medicine"
+    specialty: internal-medicine
+    timezone: America/Los_Angeles
+    locale: en-US
+    ehr_base_url: https://ecw.example.org/redding
+    fax_provider: srfax
+    phi_storage: us-west1
+    enabled_features: [scheduling, refills]
+    voice_agent_id: <<RETELL_AGENT_REDDING>>
+
+  ent_sd:
+    display_name: "ENT San Diego"
+    specialty: ent
+    timezone: America/Los_Angeles
+    locale: en-US
+    ehr_base_url: https://ecw.example.org/ent-sd
+    fax_provider: phaxio
+    phi_storage: us-west1
+    enabled_features: [scheduling, intake]
+    voice_agent_id: <<RETELL_AGENT_ENT_SD>>
+
+  stockton_cardiology:
+    display_name: "Stockton Cardiology"
+    specialty: cardiology
+    timezone: America/Los_Angeles
+    locale: en-US
+    ehr_base_url: https://ecw.example.org/stockton
+    fax_provider: phaxio
+    phi_storage: us-west1
+    enabled_features: [scheduling, refills, intake]
+    voice_agent_id: <<RETELL_AGENT_STOCKTON>>

@@ -1,0 +1,7 @@
+top_conditions:
+  - {icd10: "I10", snomed: "59621000", display: "Essential hypertension"}
+  - {icd10: "I25.10", snomed: "414545008", display: "Coronary artery disease"}
+  - {icd10: "I48.91", snomed: "49436004", display: "Atrial fibrillation"}
+  - {icd10: "I50.9", snomed: "84114007", display: "Heart failure"}
+common_labs: []
+common_meds: []

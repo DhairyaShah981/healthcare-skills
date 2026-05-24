@@ -6,6 +6,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-05-24
+
+### Added — 8 more skills (25 total)
+
+**Tier 3 — v0.2 additions**
+- `smart-oauth-scaffold` — SMART on FHIR app launch + Fernet-encrypted token storage + refresh-on-401 for Epic / Cerner / Athena / Allscripts / Meditech
+- `prior-auth-fhir` — Da Vinci PAS / CRD / DTR builders (`CoverageEligibilityRequest`, PAS `Claim`, `QuestionnaireResponse`)
+- `route-fatness` — lint fat route handlers (line count, external calls, DB queries, branch depth) and suggest service-layer extraction
+- `clinic-config-extract` — find hardcoded clinic / tenant slugs across the codebase and refactor to a single YAML config
+- `migration-bisect` — `git bisect` for Alembic migrations; ephemeral DB + per-revision smoke probe
+- `webhook-verify` — constant-time HMAC verification for Retell / Vapi / Twilio / Stripe / Slack / GitHub / Segment webhooks with replay-window enforcement
+- `phi-log-filter` — continuous PHI-scrubbing processor for structlog / Python logging / loguru / winston / pino
+- `specialty-scaffold` — scaffold a new clinical specialty (cardiology / ENT / GI / derm / peds / women's health / psychiatry / endocrine) on top of a shared base with overrides only
+
+### Tooling
+- README skill index extended to include Tier 3
+- Reference implementations for each skill: SMART OAuth (FastAPI), HMAC verifiers (7 providers), structlog PHI processor, route-fatness AST linter, slug scanner, migration bisect harness, specialty scaffolder
+
 ## [0.1.0] — 2026-05-24
 
 ### Added — 17 skills
@@ -38,5 +56,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `scripts/validate.sh` — frontmatter linter, run in CI on every PR
 - `.github/workflows/validate-skills.yml` — CI gate
 
-[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/DhairyaShah981/healthcare-skills/releases/tag/v0.1.0

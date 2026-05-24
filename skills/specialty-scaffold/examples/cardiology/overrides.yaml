@@ -1,0 +1,8 @@
+specialty: cardiology
+display_name: Cardiology
+visit_duration_minutes:
+  new: 60
+  follow_up: 30
+  telehealth: 20
+intake_extra_fields: []      # fill in specialty-specific fields
+schedulable_provider_types: []

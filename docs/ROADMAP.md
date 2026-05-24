@@ -1,23 +1,27 @@
 # Roadmap
 
-## v0.1 — Foundation (May 2026, ✅ this release)
+## v0.1 — Foundation (May 2026, ✅ shipped)
 17 skills (Tier 0/1/2), four-IDE install, CI validation, MIT license.
 
-## v0.2 — More incident skills
-Drawn from the same "we got burned by X" backlog the Tier-2 skills came from.
+## v0.2 — More incident skills (May 2026, ✅ shipped)
+8 additional skills, bringing the total to 25:
+- ✅ `smart-oauth-scaffold` — Epic / Cerner / Athena SMART on FHIR + Fernet token encryption
+- ✅ `prior-auth-fhir` — Da Vinci PAS / CRD / DTR payload builders
+- ✅ `route-fatness` — fat-route handler linter + service-layer extraction
+- ✅ `clinic-config-extract` — hardcoded slug scanner + YAML refactor
+- ✅ `migration-bisect` — Alembic bisect harness with ephemeral DB
+- ✅ `webhook-verify` — constant-time HMAC verification for 8 providers
+- ✅ `phi-log-filter` — continuous logger-boundary PHI scrubber (structlog/pino/winston)
+- ✅ `specialty-scaffold` — base + override clinical specialty scaffolder
 
-- `smart-oauth-scaffold` — Epic SMART on FHIR + Fernet token encryption
-- `prior-auth-fhir` — `CoverageEligibilityRequest` / `CoverageEligibilityResponse` builders
+## v0.3 — Remaining v0.2 backlog
 - `epic-sandbox-bootstrap` — clean Epic sandbox account + smoke tests
-- `migration-bisect` — find the migration that broke a deploy
-- `clinic-config-extract` — find hardcoded clinic slugs and refactor them to YAML
-- `route-fatness` — enforce ≤30-line route handlers (Trifetch clinic-os lesson #1)
 - `cds-hook-tester` — golden-fixture runner for the cds-hook skill
 
-## v0.3 — TypeScript companion
+## v0.4 — TypeScript companion
 Every skill currently uses Python reference snippets. Add TS / Node equivalents (Express middleware, Drizzle/Prisma examples, Zod schemas instead of Pydantic).
 
-## v0.4 — Skill discovery UX
+## v0.5 — Skill discovery UX
 - Web browser at `skills.healthcare-skills.dev` (search by tag, incident, regulation)
 - `npx healthcare-skills add phi-redact` — fetch one skill without cloning the repo
 - AsciiCast demos per skill
