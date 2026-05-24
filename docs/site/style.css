@@ -225,3 +225,28 @@ footer {
   font-size: 0.9rem;
 }
 footer a { margin: 0 4px; }
+
+/* incident page */
+.crumbs { margin: 0 0 16px; }
+.crumbs a { color: var(--muted); font-size: 0.95rem; }
+.incident-section { margin: 32px 0; max-width: 760px; }
+.incident-section h2 { font-size: 1.15rem; margin: 0 0 12px; }
+.incident-blockquote {
+  margin: 0;
+  padding: 16px 20px;
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--fg);
+}
+.incident-section ul { padding-left: 22px; }
+.incident-section li { margin: 6px 0; color: var(--fg); }
+.meta-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 24px;
+  margin: 0;
+}
+.meta-list dt { font-weight: 600; color: var(--muted); font-size: 0.9rem; }
+.meta-list dd { margin: 0; color: var(--fg); }

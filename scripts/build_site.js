@@ -63,23 +63,38 @@ function tier(name, tags) {
   return 9;
 }
 
+function whenTrigger(fm) {
+  const wt = fm.when_to_use || '';
+  if (!wt) return [];
+  // Pull bullet lines beginning with "- "
+  return wt.split('\n')
+    .map(s => s.trim())
+    .filter(s => s.startsWith('- '))
+    .map(s => s.slice(2).trim());
+}
+
 const skills = [];
 for (const name of fs.readdirSync(SKILLS_DIR).sort()) {
   if (name.startsWith('_')) continue;
   const md = path.join(SKILLS_DIR, name, 'SKILL.md');
   if (!fs.existsSync(md)) continue;
-  const fm = parseFrontmatter(fs.readFileSync(md, 'utf8'));
+  const text = fs.readFileSync(md, 'utf8');
+  const fm = parseFrontmatter(text);
+  const incidentFull = fm.incident ? oneLine(fm.incident) : '';
   skills.push({
     name,
     description: oneLine(fm.description),
     tags: Array.isArray(fm.tags) ? fm.tags : (fm.tags ? [String(fm.tags)] : []),
-    incident: fm.incident ? oneLine(fm.incident).slice(0, 240) + (oneLine(fm.incident).length > 240 ? '…' : '') : '',
+    incident: incidentFull.slice(0, 240) + (incidentFull.length > 240 ? '…' : ''),
+    incident_full: incidentFull,
+    when_to_use: whenTrigger(fm),
     license: fm.license || 'MIT',
     tier: tier(name, fm.tags),
     has_script: fs.existsSync(path.join(SKILLS_DIR, name, 'scripts')) &&
                  fs.readdirSync(path.join(SKILLS_DIR, name, 'scripts')).length > 0,
     has_typescript: fs.existsSync(path.join(REPO, 'ts', name)),
     github_url: `https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/${name}/SKILL.md`,
+    incident_page: `incident.html?skill=${encodeURIComponent(name)}`,
   });
 }
 

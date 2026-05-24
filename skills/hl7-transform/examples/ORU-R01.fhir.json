@@ -1,0 +1,104 @@
+{
+  "resourceType": "Bundle",
+  "type": "message",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:msg-oru",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "eventCoding": {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+          "code": "R01",
+          "display": "ORU Unsolicited transmission of an observation"
+        },
+        "source": {"name": "LAB", "software": "HOSPITAL"},
+        "destination": [{"name": "RECEIVER"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-1",
+      "resource": {
+        "resourceType": "Patient",
+        "identifier": [{
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v2-0203", "code": "MR"}]},
+          "system": "urn:oid:1.2.3.4.5.HOSPITAL",
+          "value": "MRN-SYN-0001"
+        }],
+        "name": [{"family": "Synthea", "given": ["John"]}],
+        "gender": "male",
+        "birthDate": "1960"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:diagrep",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "status": "final",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v2-0074", "code": "LAB"}]}],
+        "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt", "code": "80061", "display": "Lipid panel"}]},
+        "subject": {"reference": "urn:uuid:patient-1"},
+        "effectiveDateTime": "2026-05-24T11:30:00",
+        "issued": "2026-05-24T12:30:45",
+        "performer": [{"display": "SMITH A MD"}],
+        "result": [
+          {"reference": "urn:uuid:obs-ldl"},
+          {"reference": "urn:uuid:obs-hdl"},
+          {"reference": "urn:uuid:obs-tc"},
+          {"reference": "urn:uuid:obs-tg"}
+        ],
+        "conclusion": "Fasting 12 hours per patient report."
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-ldl",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category", "code": "laboratory"}]}],
+        "code": {"coding": [{"system": "http://loinc.org", "code": "13457-7", "display": "LDL Cholesterol"}]},
+        "subject": {"reference": "urn:uuid:patient-1"},
+        "effectiveDateTime": "2026-05-24T11:35:00",
+        "valueQuantity": {"value": 132, "unit": "mg/dL", "system": "http://unitsofmeasure.org", "code": "mg/dL"},
+        "referenceRange": [{"high": {"value": 100, "unit": "mg/dL"}}],
+        "interpretation": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation", "code": "H", "display": "High"}]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-hdl",
+      "resource": {
+        "resourceType": "Observation", "status": "final",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category", "code": "laboratory"}]}],
+        "code": {"coding": [{"system": "http://loinc.org", "code": "2085-9", "display": "HDL Cholesterol"}]},
+        "subject": {"reference": "urn:uuid:patient-1"},
+        "effectiveDateTime": "2026-05-24T11:35:00",
+        "valueQuantity": {"value": 52, "unit": "mg/dL"},
+        "referenceRange": [{"low": {"value": 40, "unit": "mg/dL"}}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-tc",
+      "resource": {
+        "resourceType": "Observation", "status": "final",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category", "code": "laboratory"}]}],
+        "code": {"coding": [{"system": "http://loinc.org", "code": "2093-3", "display": "Total cholesterol"}]},
+        "subject": {"reference": "urn:uuid:patient-1"},
+        "effectiveDateTime": "2026-05-24T11:35:00",
+        "valueQuantity": {"value": 214, "unit": "mg/dL"},
+        "referenceRange": [{"high": {"value": 200, "unit": "mg/dL"}}],
+        "interpretation": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation", "code": "H"}]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-tg",
+      "resource": {
+        "resourceType": "Observation", "status": "final",
+        "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category", "code": "laboratory"}]}],
+        "code": {"coding": [{"system": "http://loinc.org", "code": "2571-8", "display": "Triglyceride"}]},
+        "subject": {"reference": "urn:uuid:patient-1"},
+        "effectiveDateTime": "2026-05-24T11:35:00",
+        "valueQuantity": {"value": 148, "unit": "mg/dL"},
+        "referenceRange": [{"high": {"value": 150, "unit": "mg/dL"}}]
+      }
+    }
+  ]
+}

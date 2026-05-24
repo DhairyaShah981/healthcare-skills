@@ -1,6 +1,6 @@
 {
   "version": "0.3.0",
-  "generated_at": "2026-05-24T17:26:29.972Z",
+  "generated_at": "2026-05-24T17:57:15.360Z",
   "skills": [
     {
       "name": "alembic-guard",
@@ -12,11 +12,20 @@
         "linter"
       ],
       "incident": "Three separate production deploys crashed on Postgres because the Alembic revision ID exceeded 32 characters — `alembic_version.version_num` is `varchar(32)` by default. The crash happens at `alembic upgrade head` after deploy, leaving the …",
+      "incident_full": "Three separate production deploys crashed on Postgres because the Alembic revision ID exceeded 32 characters — `alembic_version.version_num` is `varchar(32)` by default. The crash happens at `alembic upgrade head` after deploy, leaving the DB in a half-migrated state. This linter catches the IDs before commit and also catches the second common Alembic disaster: parallel feature branches creating divergent migration chains that require manual merge.",
+      "when_to_use": [
+        "Runs / mentions `alembic revision`, `alembic upgrade`, `alembic merge`",
+        "Writes or reviews a new migration file",
+        "Hits an error like \"string longer than 32 chars\" on `alembic_version`",
+        "Mentions migration conflict, divergent heads, or branch merge in DB context",
+        "Asks \"is this migration safe?\""
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/alembic-guard/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/alembic-guard/SKILL.md",
+      "incident_page": "incident.html?skill=alembic-guard"
     },
     {
       "name": "async-blocking-lint",
@@ -28,11 +37,20 @@
         "healthcare"
       ],
       "incident": "An async FastAPI service blocked the event loop with a `requests.post()` inside an `async def` handler. Under burst load (incoming voice calls triggering webhooks) the event loop stalled and the entire process queued up requests, eventually…",
+      "incident_full": "An async FastAPI service blocked the event loop with a `requests.post()` inside an `async def` handler. Under burst load (incoming voice calls triggering webhooks) the event loop stalled and the entire process queued up requests, eventually timing out. Replacing one synchronous call with `httpx.AsyncClient` cut p95 latency by an order of magnitude. This linter catches the pattern before it ships.",
+      "when_to_use": [
+        "Writes an `async def` route handler or service method",
+        "Reviews FastAPI / Starlette / Litestar / aiohttp code",
+        "Mentions slow response times under load, server stalls, or \"event loop blocked\"",
+        "Asks about `asgi`, `async`, `await`, or coroutines in a server context",
+        "Uses `requests`, `urllib`, `httpx.Client` (sync), `time.sleep` in async code"
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/async-blocking-lint/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/async-blocking-lint/SKILL.md",
+      "incident_page": "incident.html?skill=async-blocking-lint"
     },
     {
       "name": "audit-trail",
@@ -45,11 +63,20 @@
         "fhir"
       ],
       "incident": "Without a per-function audit trail, post-incident forensics required ad-hoc structlog grep across multiple services and PHI got bled into raw logs to \"make grep work better.\" The result was both bad forensics AND bad log-hygiene. This skill…",
+      "incident_full": "Without a per-function audit trail, post-incident forensics required ad-hoc structlog grep across multiple services and PHI got bled into raw logs to \"make grep work better.\" The result was both bad forensics AND bad log-hygiene. This skill installs a single `@audited()` decorator + an AuditEvent table that gives forensics by trace ID without leaking PHI.",
+      "when_to_use": [
+        "Asks to add audit logging, access logging, or \"track who did what\"",
+        "Is writing a route handler, service method, or background job that touches PHI",
+        "References §164.312(b) (HIPAA audit controls) or asks how to satisfy it",
+        "Is responding to a security review finding about missing audit trail",
+        "Wants to add a Provenance / AuditEvent FHIR resource"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": false,
       "has_typescript": true,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/audit-trail/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/audit-trail/SKILL.md",
+      "incident_page": "incident.html?skill=audit-trail"
     },
     {
       "name": "cds-hook",
@@ -61,11 +88,20 @@
         "interop"
       ],
       "incident": "Most home-grown clinical-alert systems are tightly coupled to one EHR vendor (Epic's BPA framework, Cerner's MPages) and hard to test, port, or evolve. CDS Hooks is the open standard for clinical-alert integration; this skill scaffolds it c…",
+      "incident_full": "Most home-grown clinical-alert systems are tightly coupled to one EHR vendor (Epic's BPA framework, Cerner's MPages) and hard to test, port, or evolve. CDS Hooks is the open standard for clinical-alert integration; this skill scaffolds it correctly the first time, with the right Card shape, scope guardrails, and offline-testable rules registry.",
+      "when_to_use": [
+        "Asks to build a CDS Hooks service (discovery + hook handler)",
+        "Wants to add a clinical alert / warning to an EHR workflow",
+        "References drug-drug interactions, drug-allergy checks, duplicate-therapy",
+        "Is integrating decision support into Epic, Cerner, Athena, or another EHR",
+        "Mentions cards, suggestions, links, or app-launch in a clinical UI context"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/cds-hook/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/cds-hook/SKILL.md",
+      "incident_page": "incident.html?skill=cds-hook"
     },
     {
       "name": "cds-hook-tester",
@@ -78,11 +114,20 @@
         "eval"
       ],
       "incident": "CDS Hooks services drift silently: a rule registry edit changes whether a Card fires for the canonical \"aspirin + warfarin\" case, and the next clinician at the next site sees no warning. Without a golden-fixture regression suite, the only w…",
+      "incident_full": "CDS Hooks services drift silently: a rule registry edit changes whether a Card fires for the canonical \"aspirin + warfarin\" case, and the next clinician at the next site sees no warning. Without a golden-fixture regression suite, the only way to detect this is in production. This skill provides the canonical test harness: a directory of request + expected-card JSON pairs, a runner that diffs actual vs expected, and a CI gate.",
+      "when_to_use": [
+        "Built a CDS Hooks service (composed with the `cds-hook` skill) and",
+        "Asks \"how do I regression-test my DDI rules?\"",
+        "Wants golden fixtures for patient-view / medication-prescribe / order-select",
+        "Is wiring up CI for a CDS Hooks service",
+        "Mentions Cards, suggestions, links — and wants to assert on them"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/cds-hook-tester/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/cds-hook-tester/SKILL.md",
+      "incident_page": "incident.html?skill=cds-hook-tester"
     },
     {
       "name": "clinic-config-extract",
@@ -94,11 +139,19 @@
         "healthcare"
       ],
       "incident": "Clinic slugs (`\"redding\"`, `\"ent_sd\"`, `\"stockton-cardiology\"`) appeared hardcoded in 20+ files across services, templates, and config. Onboarding the second clinic required changing code; onboarding the third surfaced paths where a slug ch…",
+      "incident_full": "Clinic slugs (`\"redding\"`, `\"ent_sd\"`, `\"stockton-cardiology\"`) appeared hardcoded in 20+ files across services, templates, and config. Onboarding the second clinic required changing code; onboarding the third surfaced paths where a slug check defaulted to the first clinic, silently routing data wrong. This skill finds the slugs and refactors them to a single YAML config; CI gates against new hardcodes.",
+      "when_to_use": [
+        "Plans to onboard a new clinic / tenant / customer",
+        "Asks \"where are all the places clinic X is hardcoded?\"",
+        "Reviews multi-tenant code and finds string literals like \"redding\",",
+        "Mentions configuration drift, per-tenant overrides, or \"adding clinic #3\""
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/clinic-config-extract/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/clinic-config-extract/SKILL.md",
+      "incident_page": "incident.html?skill=clinic-config-extract"
     },
     {
       "name": "clinical-eval",
@@ -111,11 +164,20 @@
         "fhir"
       ],
       "incident": "Voice-agent and OCR-extractor prompts drift silently when models update. Without a CI-gated eval suite, the first signal of regression is a clinician noticing a wrong medication on a chart — weeks after the change shipped. This skill encode…",
+      "incident_full": "Voice-agent and OCR-extractor prompts drift silently when models update. Without a CI-gated eval suite, the first signal of regression is a clinician noticing a wrong medication on a chart — weeks after the change shipped. This skill encodes the eval-first pattern that fhir-mcp's `/evals` directory uses: pinned judge model, frozen fixtures, rubric-based scoring, CI gate.",
+      "when_to_use": [
+        "Asks to evaluate a clinical AI feature (triage, summarisation, extraction)",
+        "Wants a regression gate before a prompt or model change ships",
+        "Mentions \"scoring\", \"rubric\", \"judge model\", or \"ground truth\" for clinical outputs",
+        "Is about to upgrade a model (Sonnet → Opus, GPT-4 → GPT-5) on a healthcare path",
+        "Has Synthea bundles or frozen test fixtures and needs an eval harness around them"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/clinical-eval/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/clinical-eval/SKILL.md",
+      "incident_page": "incident.html?skill=clinical-eval"
     },
     {
       "name": "consent-gate",
@@ -128,11 +190,20 @@
         "authorization"
       ],
       "incident": "Endpoints that exposed patient data to partner apps relied on application- level role checks but not on per-patient consent. Result: a partner app's bearer token could read any patient's data the org had — far beyond what each patient had a…",
+      "incident_full": "Endpoints that exposed patient data to partner apps relied on application- level role checks but not on per-patient consent. Result: a partner app's bearer token could read any patient's data the org had — far beyond what each patient had actually authorized. The consent-gate dependency enforces the FHIR Consent resource (or equivalent) at the HTTP layer.",
+      "when_to_use": [
+        "Asks to add patient consent verification to an endpoint",
+        "References a FHIR Consent resource, an OAuth scope, or \"21st Century Cures\"",
+        "Is integrating with a third-party app that needs patient authorization",
+        "Works on a route that exposes data outside the treatment context (research,",
+        "Mentions SMART on FHIR scopes, patient/* scopes, or app-level access"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": false,
       "has_typescript": true,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/consent-gate/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/consent-gate/SKILL.md",
+      "incident_page": "incident.html?skill=consent-gate"
     },
     {
       "name": "deid-vault",
@@ -145,11 +216,20 @@
         "vault"
       ],
       "incident": "Plain `phi-redact` is a one-way operation; useful for logs but useless when you need to *trace* a finding back to the original patient (\"which de-id'd record corresponds to the patient who complained?\"). Without a vault, engineers were copy…",
+      "incident_full": "Plain `phi-redact` is a one-way operation; useful for logs but useless when you need to *trace* a finding back to the original patient (\"which de-id'd record corresponds to the patient who complained?\"). Without a vault, engineers were copy-pasting plain MRNs into \"private\" channels — a worse outcome than a controlled, audited vault would have been. This skill encodes the keyed-vault pattern from fhir-mcp/deid: HMAC-SHA256 pseudonyms, audited re-identification, key in env not source.",
+      "when_to_use": [
+        "Asks to pseudonymize / tokenize patient identifiers",
+        "Wants de-identified data that can still be joined back to source (for",
+        "Needs to share data with a sub-processor under a BAA",
+        "References HMAC-based pseudonymization, \"tokenization vault\", or",
+        "Is building eval / staging fixtures that must look real but never expose PHI"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": true,
-      "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/deid-vault/SKILL.md"
+      "has_typescript": true,
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/deid-vault/SKILL.md",
+      "incident_page": "incident.html?skill=deid-vault"
     },
     {
       "name": "epic-sandbox-bootstrap",
@@ -162,11 +242,20 @@
         "sandbox"
       ],
       "incident": "Epic-on-FHIR onboarding has 12+ steps spread across the Epic developer portal, the SMART spec, and the org's own infra. Engineers consistently miss one (wrong `aud`, redirect URI mismatch, scope missing, sandbox vs prod client_id swapped) a…",
+      "incident_full": "Epic-on-FHIR onboarding has 12+ steps spread across the Epic developer portal, the SMART spec, and the org's own infra. Engineers consistently miss one (wrong `aud`, redirect URI mismatch, scope missing, sandbox vs prod client_id swapped) and waste a half-day diagnosing a generic \"invalid_request\" error. This skill walks through the checklist in order and ships a smoke-test that proves the wiring is correct before anyone writes app code.",
+      "when_to_use": [
+        "Is starting an Epic on FHIR integration from scratch",
+        "Mentions Epic, Epic sandbox, fhir.epic.com, or \"the Epic developer account\"",
+        "Asks how to register / configure an app for Epic",
+        "Has a failing Epic launch and needs to step through the config checklist",
+        "Wants a smoke-test that proves Epic auth + a basic read works"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/epic-sandbox-bootstrap/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/epic-sandbox-bootstrap/SKILL.md",
+      "incident_page": "incident.html?skill=epic-sandbox-bootstrap"
     },
     {
       "name": "fhir-bundle",
@@ -177,11 +266,20 @@
         "interop"
       ],
       "incident": "In one production system the only existing FHIR-construction code was scattered across multiple endpoints, each with subtly different `meta.profile` handling and divergent identifier-system URLs. New developers wrote bundles by copy-paste a…",
+      "incident_full": "In one production system the only existing FHIR-construction code was scattered across multiple endpoints, each with subtly different `meta.profile` handling and divergent identifier-system URLs. New developers wrote bundles by copy-paste and got \"valid FHIR\" that the receiver rejected. This skill centralises the shape so the bundle is always valid against US Core 6.1.0.",
+      "when_to_use": [
+        "Asks to construct any FHIR resource (Patient, Encounter, Observation, Condition,",
+        "Pastes a clinical scenario and asks to model it as FHIR",
+        "Wants to seed a development EHR with synthetic patients",
+        "Asks \"what's the FHIR shape for X?\", \"give me an example Observation\", etc.",
+        "Is integrating with an EHR sandbox and needs a starter payload"
+      ],
       "license": "MIT",
       "tier": 0,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/fhir-bundle/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/fhir-bundle/SKILL.md",
+      "incident_page": "incident.html?skill=fhir-bundle"
     },
     {
       "name": "hipaa-review",
@@ -194,11 +292,20 @@
         "linter"
       ],
       "incident": "Most healthtech engineering orgs run formal HIPAA reviews only at quarterly cadence, while ship velocity is per-PR. The gap between when bad code is written and when the security officer reviews it is days-to-weeks; that gap is when breache…",
+      "incident_full": "Most healthtech engineering orgs run formal HIPAA reviews only at quarterly cadence, while ship velocity is per-PR. The gap between when bad code is written and when the security officer reviews it is days-to-weeks; that gap is when breaches happen. This skill encodes the Security Rule checklist into a per-PR gate so every diff that touches patient data gets at least a structured first pass before merge.",
+      "when_to_use": [
+        "Asks to \"review for HIPAA\", \"compliance review\", or \"audit this PR\"",
+        "Is about to merge code that touches patient data, auth, logging, or storage",
+        "Pastes a diff, a route handler, a DB model, or an integration script",
+        "Mentions encryption, access control, audit logs, or HHS Breach Notification",
+        "References 45 CFR §164 or the HIPAA Security Rule"
+      ],
       "license": "MIT",
       "tier": 0,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/hipaa-review/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/hipaa-review/SKILL.md",
+      "incident_page": "incident.html?skill=hipaa-review"
     },
     {
       "name": "hl7-transform",
@@ -210,11 +317,20 @@
         "interop"
       ],
       "incident": "HL7 v2 is the dominant integration format inside hospitals and won't be replaced for decades. Engineers writing greenfield FHIR services routinely have to ingest an HL7 v2 feed (Cerner, Epic interfaces, legacy lab gateways) and convert. Wit…",
+      "incident_full": "HL7 v2 is the dominant integration format inside hospitals and won't be replaced for decades. Engineers writing greenfield FHIR services routinely have to ingest an HL7 v2 feed (Cerner, Epic interfaces, legacy lab gateways) and convert. Without a canonical handler, every team writes its own brittle pipe-splitter and gets the field encoding subtly wrong (sub-component separators, escape sequences, repeating fields, MSH-specific quirks).",
+      "when_to_use": [
+        "Pastes an HL7 v2 message (pipe-delimited, starts with `MSH|...`)",
+        "Asks to convert HL7 v2 ↔ FHIR R4",
+        "Is building an interface to a legacy hospital information system",
+        "Mentions specific HL7 segments (PID, PV1, OBX, OBR, SCH, AIG)",
+        "References HL7 v2.5.1, MLLP, or \"the feed from the hospital\""
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/hl7-transform/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/hl7-transform/SKILL.md",
+      "incident_page": "incident.html?skill=hl7-transform"
     },
     {
       "name": "icd-snomed-map",
@@ -229,11 +345,20 @@
         "rxnorm"
       ],
       "incident": "Engineers without a terminology background hand-write code mappings inconsistently across services — one service uses `I10` for hypertension, another uses `38341003` (SNOMED), a third stores both, none use the same display string. This skil…",
+      "incident_full": "Engineers without a terminology background hand-write code mappings inconsistently across services — one service uses `I10` for hypertension, another uses `38341003` (SNOMED), a third stores both, none use the same display string. This skill provides a single offline-first lookup with graceful fallback to public terminology services so the team uses one canonical mapping everywhere.",
+      "when_to_use": [
+        "Asks to map between two clinical code systems",
+        "Wants the canonical code for a clinical concept (LOINC for HbA1c, etc.)",
+        "Pastes a code (e.g. \"I10\", \"44054006\") and asks for meaning",
+        "Is wiring up ConceptMap resources or building a crosswalk",
+        "Asks about value-sets, code systems, or UCUM units"
+      ],
       "license": "MIT",
       "tier": 1,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/icd-snomed-map/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/icd-snomed-map/SKILL.md",
+      "incident_page": "incident.html?skill=icd-snomed-map"
     },
     {
       "name": "jsonb-pydantic-pair",
@@ -246,11 +371,20 @@
         "pydantic"
       ],
       "incident": "A legacy schema accumulated 26+ `Column(JSONB)` columns with no Pydantic wrappers. Refactors became impossible because any change risked breaking an unknown consumer reading a specific key. Runtime `KeyError`s on missing fields showed up in…",
+      "incident_full": "A legacy schema accumulated 26+ `Column(JSONB)` columns with no Pydantic wrappers. Refactors became impossible because any change risked breaking an unknown consumer reading a specific key. Runtime `KeyError`s on missing fields showed up in patient-facing UI weeks after a backend change. This linter enforces the rule: a JSONB column without a Pydantic schema is a liability.",
+      "when_to_use": [
+        "Adds or modifies a `Column(JSONB)` / `Column(JSON)` in a SQLAlchemy model",
+        "Reviews an existing model that uses JSONB",
+        "Hits a runtime `KeyError` from a JSONB blob",
+        "Asks \"how do I validate this JSONB shape?\"",
+        "Is auditing data integrity in a healthcare DB schema"
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/jsonb-pydantic-pair/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/jsonb-pydantic-pair/SKILL.md",
+      "incident_page": "incident.html?skill=jsonb-pydantic-pair"
     },
     {
       "name": "migration-bisect",
@@ -262,11 +396,19 @@
         "debugging"
       ],
       "incident": "A deploy went out with eight new Alembic revisions; the production DB ended up in a half-migrated state and the team spent a day reading migration files to find the culprit. With a bisect harness, the answer is automated: spin up an ephemer…",
+      "incident_full": "A deploy went out with eight new Alembic revisions; the production DB ended up in a half-migrated state and the team spent a day reading migration files to find the culprit. With a bisect harness, the answer is automated: spin up an ephemeral DB, run upgrades one-by-one with a smoke probe (the failing query or feature flag), and the first failing step is your bug.",
+      "when_to_use": [
+        "Reports a deploy failed at the migration step",
+        "Asks \"which migration broke X?\"",
+        "Has a chain of N migrations and only one of them is suspect",
+        "Mentions schema drift, half-applied migrations, or `alembic downgrade`"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/migration-bisect/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/migration-bisect/SKILL.md",
+      "incident_page": "incident.html?skill=migration-bisect"
     },
     {
       "name": "phi-log-filter",
@@ -279,11 +421,20 @@
         "healthcare"
       ],
       "incident": "Even when engineers know \"don't log PHI\", they reach for `logger.info(f\"loaded patient {patient}\")` under deadline pressure. The fix isn't more discipline; it's a logger middleware that scrubs every record before it leaves the process, plus…",
+      "incident_full": "Even when engineers know \"don't log PHI\", they reach for `logger.info(f\"loaded patient {patient}\")` under deadline pressure. The fix isn't more discipline; it's a logger middleware that scrubs every record before it leaves the process, plus a redact-keys allowlist so deliberate diagnostic logging surfaces only safe fields. This skill installs the processor once.",
+      "when_to_use": [
+        "Sets up logging in a FastAPI / Flask / Django / Express / Fastify service",
+        "Asks \"how do I prevent PHI from getting into logs?\"",
+        "Uses structlog, loguru, Python logging, winston, or pino",
+        "Configures a log sink (Datadog, Cloud Logging, Sentry, LogRocket)",
+        "Has a logging review finding about possible PHI exposure"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": true,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/phi-log-filter/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/phi-log-filter/SKILL.md",
+      "incident_page": "incident.html?skill=phi-log-filter"
     },
     {
       "name": "phi-redact",
@@ -295,11 +446,20 @@
         "healthcare"
       ],
       "incident": "Structlog redaction was documented as policy but never enforced as code; a single processor change could silently leak patient names into application logs. PHI in a log line is a notifiable breach under the HIPAA Breach Notification Rule (4…",
+      "incident_full": "Structlog redaction was documented as policy but never enforced as code; a single processor change could silently leak patient names into application logs. PHI in a log line is a notifiable breach under the HIPAA Breach Notification Rule (45 CFR §164.404) — engineering teams have been forced to send breach letters to thousands of patients because of a misconfigured logger.",
+      "when_to_use": [
+        "Pastes any text, log, JSON, or stack trace containing patient-shaped data",
+        "Asks \"is this safe to share?\", \"does this leak PHI?\", \"scrub this\", \"redact this\"",
+        "Is about to commit a file under `fixtures/`, `tests/`, `examples/`, or `seed/`",
+        "Asks to review logging, telemetry, or error-reporting code for PHI exposure",
+        "Mentions sharing logs with a vendor, support, or in a bug report"
+      ],
       "license": "MIT",
       "tier": 0,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/phi-redact/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/phi-redact/SKILL.md",
+      "incident_page": "incident.html?skill=phi-redact"
     },
     {
       "name": "prior-auth-fhir",
@@ -312,11 +472,20 @@
         "payer"
       ],
       "incident": "Prior-auth integration was implemented bespoke per payer, with subtly different bundle shapes, missing identifiers, and incomplete supporting documents. Submissions that \"looked right\" got auto-rejected because a required CoverageEligibilit…",
+      "incident_full": "Prior-auth integration was implemented bespoke per payer, with subtly different bundle shapes, missing identifiers, and incomplete supporting documents. Submissions that \"looked right\" got auto-rejected because a required CoverageEligibilityRequest.servicedDate or Claim.insurance link was missing. This skill encodes the Da Vinci PAS canonical shape so the first submission lands cleanly.",
+      "when_to_use": [
+        "Asks to build a prior-authorization payload",
+        "References CoverageEligibilityRequest, CoverageEligibilityResponse,",
+        "Is integrating with a payer FHIR endpoint",
+        "Mentions CRD (Coverage Requirements Discovery), DTR (Documentation",
+        "Needs to surface \"this service requires prior auth\" to a clinician"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/prior-auth-fhir/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/prior-auth-fhir/SKILL.md",
+      "incident_page": "incident.html?skill=prior-auth-fhir"
     },
     {
       "name": "route-fatness",
@@ -328,11 +497,19 @@
         "refactor"
       ],
       "incident": "A single route handler grew to 135 lines spanning four concerns: patient lookup, creation, approval, ECW queueing, and fax dispatch. It became untestable (no place to mock without monkey-patching), unrefactorable (every change risked one of…",
+      "incident_full": "A single route handler grew to 135 lines spanning four concerns: patient lookup, creation, approval, ECW queueing, and fax dispatch. It became untestable (no place to mock without monkey-patching), unrefactorable (every change risked one of the four flows), and the source of three separate production bugs. Rule: routes should be glue, not logic — auth, validation, call-the-service, shape-response, return. Anything else belongs in a service module.",
+      "when_to_use": [
+        "Adds or reviews a route handler in FastAPI / Express / Flask / Django",
+        "Writes a route function that mixes auth, DB, external calls, business",
+        "Asks to refactor a long endpoint",
+        "Mentions \"service layer\", \"clean architecture\", or \"extract method\""
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/route-fatness/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/route-fatness/SKILL.md",
+      "incident_page": "incident.html?skill=route-fatness"
     },
     {
       "name": "secrets-placeholder",
@@ -344,11 +521,20 @@
         "devops"
       ],
       "incident": "Six separate Eva-scheduling agents shipped to production with `*.ngrok.io` URLs baked into committed JSON. Each broke the moment the developer closed the dev laptop on Friday. Worse, when the agents *did* run, they accepted webhook calls wi…",
+      "incident_full": "Six separate Eva-scheduling agents shipped to production with `*.ngrok.io` URLs baked into committed JSON. Each broke the moment the developer closed the dev laptop on Friday. Worse, when the agents *did* run, they accepted webhook calls without verifying a secret because the secret was either missing or hardcoded for development. This skill scaffolds the placeholder-token pattern so every committed JSON references a placeholder like `<<RETELL_WEBHOOK_SECRET>>` that gets substituted from Secret Manager at deploy time.",
+      "when_to_use": [
+        "Has a JSON / YAML config that must be committed but contains environment-",
+        "Mentions Secret Manager, AWS SecretsManager, GCP Secret Manager, or",
+        "Is about to commit a webhook secret, API key, or ngrok URL",
+        "Hits the `voice-agent-lint` RTL-016 or RTL-017 rule",
+        "Asks \"where do I put this secret?\""
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/secrets-placeholder/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/secrets-placeholder/SKILL.md",
+      "incident_page": "incident.html?skill=secrets-placeholder"
     },
     {
       "name": "smart-oauth-scaffold",
@@ -361,11 +547,20 @@
         "security"
       ],
       "incident": "Epic OAuth implementations end up scattered across services with subtly different Fernet key handling, no refresh-rotation hygiene, and token rows stored plaintext in dev DBs that get snapshotted to staging. The same six endpoints get re-im…",
+      "incident_full": "Epic OAuth implementations end up scattered across services with subtly different Fernet key handling, no refresh-rotation hygiene, and token rows stored plaintext in dev DBs that get snapshotted to staging. The same six endpoints get re-implemented per project, each with one or two bugs. This skill scaffolds the canonical shape once: `/launch`, `/callback`, encrypted storage, scope-checked endpoints, refresh on 401.",
+      "when_to_use": [
+        "Asks to add SMART on FHIR / Epic / Cerner OAuth to their app",
+        "Needs to handle EHR launch context (`launch`, `iss`, `aud`, patient context)",
+        "Wants to encrypt refresh tokens at rest",
+        "Is building a clinician-facing app that EHRs launch via OAuth",
+        "References standalone vs EHR launch, SMART scopes, or `fhir-url`"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": false,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/smart-oauth-scaffold/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/smart-oauth-scaffold/SKILL.md",
+      "incident_page": "incident.html?skill=smart-oauth-scaffold"
     },
     {
       "name": "specialty-scaffold",
@@ -377,11 +572,20 @@
         "triage"
       ],
       "incident": "Each specialty template (ENT, cardiology, internal medicine, GI, derm) was created by copy-pasting the previous one and editing 20% of the content. The shared 80% drifted across specialties: ENT had a refined red-flag prompt, cardiology had…",
+      "incident_full": "Each specialty template (ENT, cardiology, internal medicine, GI, derm) was created by copy-pasting the previous one and editing 20% of the content. The shared 80% drifted across specialties: ENT had a refined red-flag prompt, cardiology had a better refusal pattern, but neither propagated. This skill scaffolds a *base* template + a specialty *override* file, so the shared logic stays shared and the specialty-specific parts are the only thing the user maintains.",
+      "when_to_use": [
+        "Adds a new clinical specialty to a healthcare AI / workflow product",
+        "Asks to \"onboard cardiology / GI / derm / peds\"",
+        "Has multiple specialty templates that are 80% identical and wants to",
+        "Asks for \"common conditions / labs / red flags for specialty X\"",
+        "References scope boundaries, triage rules, or specialty-specific intake"
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/specialty-scaffold/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/specialty-scaffold/SKILL.md",
+      "incident_page": "incident.html?skill=specialty-scaffold"
     },
     {
       "name": "synthea-fixture",
@@ -394,11 +598,20 @@
         "testing"
       ],
       "incident": "Engineers regenerating Synthea bundles on every test run caused eval scores to flutter run-over-run from data noise rather than model behaviour. Worse, when a developer regenerated the population to add a new case, every existing test's gol…",
+      "incident_full": "Engineers regenerating Synthea bundles on every test run caused eval scores to flutter run-over-run from data noise rather than model behaviour. Worse, when a developer regenerated the population to add a new case, every existing test's gold annotations needed re-mapping. This skill encodes the \"fixtures as code\" pattern: commit them, version them, treat them as the eval contract.",
+      "when_to_use": [
+        "Needs deterministic FHIR fixtures for tests / evals",
+        "Asks to generate a synthetic patient with specific conditions",
+        "Is building the dataset for the `clinical-eval` skill",
+        "Wants to seed a development EHR or test harness",
+        "Mentions Synthea, ground-truth annotations, or frozen fixtures"
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
       "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/synthea-fixture/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/synthea-fixture/SKILL.md",
+      "incident_page": "incident.html?skill=synthea-fixture"
     },
     {
       "name": "tenant-rls-guard",
@@ -411,11 +624,19 @@
         "linter"
       ],
       "incident": "A near-miss: a legacy query against `prior_auth` relied on Postgres RLS for tenant isolation, but a code path bypassed the session-context that set the RLS variable, opening a window for cross-tenant data exposure. RLS is great defense-in-d…",
+      "incident_full": "A near-miss: a legacy query against `prior_auth` relied on Postgres RLS for tenant isolation, but a code path bypassed the session-context that set the RLS variable, opening a window for cross-tenant data exposure. RLS is great defense-in-depth but never the only line. This linter enforces explicit `client_id`/`tenant_id` predicates in code AND RLS as a belt-and-braces second layer.",
+      "when_to_use": [
+        "Writes a query against a tenant-scoped table (patient, encounter, appointment,",
+        "Reviews a route handler or service method that loads patient data",
+        "Asks about Postgres RLS, multi-tenancy, or cross-tenant safety",
+        "Mentions \"one tenant saw another tenant's data\" (worst-case incident)"
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
-      "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/tenant-rls-guard/SKILL.md"
+      "has_typescript": true,
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/tenant-rls-guard/SKILL.md",
+      "incident_page": "incident.html?skill=tenant-rls-guard"
     },
     {
       "name": "voice-agent-lint",
@@ -428,11 +649,20 @@
         "vapi"
       ],
       "incident": "Voice agents have an unusually high pre-prod-to-prod failure rate because the JSON validates as JSON but fails at Retell/Vapi import or first call. 17 distinct rules in this skill correspond to documented production incidents: missing `is_t…",
+      "incident_full": "Voice agents have an unusually high pre-prod-to-prod failure rate because the JSON validates as JSON but fails at Retell/Vapi import or first call. 17 distinct rules in this skill correspond to documented production incidents: missing `is_transfer_cf` ('Cannot read properties of undefined' on three separate Iris agents), empty `parameters.required` (HTTP 400 rejected at upload), ngrok URLs baked into committed prod JSONs (6×), knowledge-base IDs referenced in prompts but pointing at empty KBs.",
+      "when_to_use": [
+        "Pastes a Retell / Vapi voice-agent JSON file or asks to validate one",
+        "Is about to upload an agent to Retell / Vapi",
+        "Mentions `is_transfer_cf`, `conversationFlow`, custom function tools,",
+        "Has a voice agent that \"imports but doesn't work\" — likely silent runtime",
+        "Asks \"is my voice agent deployable?\""
+      ],
       "license": "MIT",
       "tier": 2,
       "has_script": true,
-      "has_typescript": false,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/voice-agent-lint/SKILL.md"
+      "has_typescript": true,
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/voice-agent-lint/SKILL.md",
+      "incident_page": "incident.html?skill=voice-agent-lint"
     },
     {
       "name": "webhook-verify",
@@ -444,11 +674,20 @@
         "hmac"
       ],
       "incident": "A webhook endpoint that processed appointment confirmations had no signature verification — any attacker who guessed the URL could create, modify, or cancel appointments. Even with a \"secret\" path the URL leaks via referrer headers, proxy l…",
+      "incident_full": "A webhook endpoint that processed appointment confirmations had no signature verification — any attacker who guessed the URL could create, modify, or cancel appointments. Even with a \"secret\" path the URL leaks via referrer headers, proxy logs, and CDN caches. This skill gives you the canonical HMAC verification pattern per provider, with constant-time comparison and replay-window enforcement.",
+      "when_to_use": [
+        "Wires up a webhook receiver endpoint",
+        "References Retell / Vapi / Twilio / Stripe / Slack signatures",
+        "Asks how to verify a webhook signature",
+        "Has a webhook that processes PHI / payments without verifying",
+        "Mentions HMAC-SHA256, X-Signature, Stripe-Signature, etc."
+      ],
       "license": "MIT",
       "tier": 3,
       "has_script": true,
       "has_typescript": true,
-      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/webhook-verify/SKILL.md"
+      "github_url": "https://github.com/DhairyaShah981/healthcare-skills/blob/main/skills/webhook-verify/SKILL.md",
+      "incident_page": "incident.html?skill=webhook-verify"
     }
   ]
 }

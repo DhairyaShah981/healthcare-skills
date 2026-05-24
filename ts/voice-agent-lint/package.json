@@ -1,0 +1,8 @@
+{
+  "name": "@healthcare-skills/voice-agent-lint",
+  "version": "0.4.0",
+  "description": "17 production-failure rules for Retell / Vapi voice-agent JSONs (Node, zero-dep).",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": { "test": "node --test test/smoke.test.js" }
+}

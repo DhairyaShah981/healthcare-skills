@@ -95,9 +95,7 @@
     const name = document.createElement('div');
     name.className = 'card-name';
     const a = document.createElement('a');
-    a.href = s.github_url;
-    a.target = '_blank';
-    a.rel = 'noopener';
+    a.href = s.incident_page || s.github_url;
     a.textContent = s.name;
     name.appendChild(a);
 

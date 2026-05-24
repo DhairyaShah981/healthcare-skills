@@ -6,6 +6,37 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-05-24
+
+### Added — TypeScript reference impls (3 more, 7 total)
+
+- `ts/deid-vault` — reversible HMAC pseudonymization, zero-dep, 6 smoke tests
+- `ts/tenant-rls-guard` — Drizzle / Prisma / raw-SQL multi-tenant query linter, 8 tests
+- `ts/voice-agent-lint` — RTL-001..017 ported to TS, 8 tests
+
+Total TS smoke coverage: 48 cases across 7 packages.
+
+### Added — Incident landing pages
+
+- `docs/site/incident.html?skill=<name>` per-skill landing page
+- Renders full incident text, when-to-use bullets, tier, runnable-code indicators, `npx` install command, link to SKILL.md
+- 404-friendly when an unknown skill name is passed
+- Cards on the main page now link to incident pages (not GitHub directly)
+
+### Added — HL7 v2 coverage
+
+- `skills/hl7-transform/examples/ORU-R01.{hl7,fhir.json}` — lipid panel result + DiagnosticReport + 4 Observations
+- `skills/hl7-transform/examples/SIU-S12.{hl7,fhir.json}` — new appointment + Slot + Practitioner + Location
+
+### Added — Skill-pack composition
+
+- `docs/COMPOSITION.md` — the `extends:` overlay pattern for org-private packs on top of the public catalog
+
+### Added — Release tooling
+
+- `PUBLISHING.md` — maintainer-facing checklist for GitHub Release + npm publish
+- `.github/workflows/release.yml` — tag-driven GitHub Release; npm publish job kicks in once `NPM_TOKEN` is added to repo secrets
+
 ## [0.3.0] — 2026-05-24
 
 ### Added — 2 more skills (27 total)
@@ -74,7 +105,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `scripts/validate.sh` — frontmatter linter, run in CI on every PR
 - `.github/workflows/validate-skills.yml` — CI gate
 
-[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/DhairyaShah981/healthcare-skills/releases/tag/v0.1.0

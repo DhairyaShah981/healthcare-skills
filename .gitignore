@@ -33,3 +33,5 @@ Thumbs.db
 htmlcov/
 *.cover
 .gstack/
+*.tgz
+healthcare-skills-*.tgz

@@ -1,0 +1,78 @@
+{
+  "resourceType": "Bundle",
+  "type": "message",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:msg-siu",
+      "resource": {
+        "resourceType": "MessageHeader",
+        "eventCoding": {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0003",
+          "code": "S12",
+          "display": "SIU Notification of new appointment"
+        },
+        "source": {"name": "SCHED", "software": "HOSPITAL"},
+        "destination": [{"name": "EHR"}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-2",
+      "resource": {
+        "resourceType": "Patient",
+        "identifier": [{
+          "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v2-0203", "code": "MR"}]},
+          "value": "MRN-SYN-0002"
+        }],
+        "name": [{"family": "Doe", "given": ["Jane"]}],
+        "gender": "female",
+        "birthDate": "1978"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:prov",
+      "resource": {
+        "resourceType": "Practitioner",
+        "identifier": [{"value": "PROV-A2"}],
+        "name": [{"family": "Smith", "given": ["Anne"], "suffix": ["MD"]}]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:loc",
+      "resource": {
+        "resourceType": "Location",
+        "name": "CARDIO-RM3",
+        "managingOrganization": {"display": "HOSPITAL"}
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot",
+      "resource": {
+        "resourceType": "Slot",
+        "schedule": {"display": "Cardio outpatient schedule"},
+        "status": "busy",
+        "start": "2026-06-01T09:00:00",
+        "end": "2026-06-01T09:45:00"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:appt",
+      "resource": {
+        "resourceType": "Appointment",
+        "status": "booked",
+        "identifier": [{"value": "APT-7711"}],
+        "serviceType": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/service-type", "code": "CONSULT", "display": "Consult"}]}],
+        "minutesDuration": 45,
+        "start": "2026-06-01T09:00:00",
+        "end": "2026-06-01T09:45:00",
+        "slot": [{"reference": "urn:uuid:slot"}],
+        "participant": [
+          {"actor": {"reference": "urn:uuid:patient-2"}, "status": "accepted", "required": "required"},
+          {"actor": {"reference": "urn:uuid:prov"}, "status": "accepted", "required": "required",
+            "type": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "code": "ATND"}]}]},
+          {"actor": {"reference": "urn:uuid:loc"}, "status": "accepted", "required": "required",
+            "type": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "code": "LOC"}]}]}
+        ]
+      }
+    }
+  ]
+}

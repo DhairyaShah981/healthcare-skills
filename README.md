@@ -103,13 +103,18 @@ Incident backlog plus the most-asked-for healthcare workflows.
 
 Flags: `--ide`, `--skills-root`, `--dry-run`, `--json`.
 
-**TypeScript reference implementations** ship for the skills where Node / TS is the more common ecosystem. Each `ts/<skill>/` is a zero-dependency package with `node --test` smoke tests:
-- [`ts/phi-log-filter`](ts/phi-log-filter/) — pino + winston redactor (4 smoke tests)
-- [`ts/webhook-verify`](ts/webhook-verify/) — HMAC verifiers for 7 providers (9 smoke tests)
-- [`ts/audit-trail`](ts/audit-trail/) — `audited()` wrapper + Express middleware (3 smoke tests)
-- [`ts/consent-gate`](ts/consent-gate/) — SMART scope + FHIR Consent middleware (10 smoke tests)
+**TypeScript reference implementations** — 7 zero-dep Node packages, all tested with `node --test`:
+- [`ts/phi-log-filter`](ts/phi-log-filter/) — pino + winston redactor (4 tests)
+- [`ts/webhook-verify`](ts/webhook-verify/) — HMAC verifiers for 7 providers (9 tests)
+- [`ts/audit-trail`](ts/audit-trail/) — `audited()` wrapper + Express middleware (3 tests)
+- [`ts/consent-gate`](ts/consent-gate/) — SMART scope + FHIR Consent middleware (10 tests)
+- [`ts/deid-vault`](ts/deid-vault/) — reversible HMAC pseudonymization vault (6 tests)
+- [`ts/tenant-rls-guard`](ts/tenant-rls-guard/) — TS / JS multi-tenant query linter (8 tests)
+- [`ts/voice-agent-lint`](ts/voice-agent-lint/) — RTL-001..017 in TS (8 tests)
 
-**Web catalog** — the static site under [`docs/site/`](docs/site/) auto-deploys to GitHub Pages on every push. Browse, search, and filter every skill at <https://dhairyashah981.github.io/healthcare-skills>.
+**Web catalog** — the static site under [`docs/site/`](docs/site/) auto-deploys to GitHub Pages. Every card opens a dedicated [incident landing page](docs/site/incident.html?skill=phi-redact) with the full incident, when-to-use bullets, tier, runnable-code indicators, and an `npx` install command. Live at <https://dhairyashah981.github.io/healthcare-skills>.
+
+**Skill-pack composition** — extend the public pack with private overlays per [`docs/COMPOSITION.md`](docs/COMPOSITION.md).
 
 ---
 

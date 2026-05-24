@@ -1,7 +1,7 @@
 {
   "name": "healthcare-skills",
-  "version": "0.3.0",
-  "description": "Plug-and-play SKILL.md pack for healthcare engineering — Claude Code / Cursor / Codex / Gemini.",
+  "version": "0.4.0",
+  "description": "Plug-and-play SKILL.md pack for healthcare engineering — Claude Code / Cursor / Codex / Gemini. 27 skills tied to real production incidents.",
   "license": "MIT",
   "repository": {
     "type": "git",
