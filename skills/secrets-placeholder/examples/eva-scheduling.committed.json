@@ -1,0 +1,30 @@
+{
+  "agent_name": "eva-scheduling",
+  "language": "en-US",
+  "conversationFlow": {
+    "is_transfer_cf": false,
+    "start_node_id": "n1",
+    "nodes": [
+      {"id": "n1", "type": "start"},
+      {"id": "n2", "type": "function", "tool_id": "check_availability"}
+    ],
+    "edges": [
+      {"id": "e1", "source_node_id": "n1", "destination_node_id": "n2"}
+    ]
+  },
+  "tools": [
+    {
+      "name": "check_availability",
+      "url": "<<TOOL_URL_CHECK_AVAILABILITY>>",
+      "webhook_secret": "<<RETELL_WEBHOOK_SECRET_STOCKTON>>",
+      "parameters": {
+        "type": "object",
+        "required": ["date"],
+        "properties": {
+          "date": {"type": "string", "description": "Desired appointment date in YYYY-MM-DD format"}
+        }
+      }
+    }
+  ],
+  "knowledge_base_ids": ["<<KB_ID_STOCKTON_SERVICES>>"]
+}

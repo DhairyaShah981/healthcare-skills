@@ -1,0 +1,38 @@
+2026-05-24T08:14:22Z ERROR app.appointments: failed to confirm appointment
+  patient_name="[NAME]" dob="[DOB:year=1962]" mrn="[MRN]"
+  phone="[PHONE]" reason="Insurance card photo uploaded was unreadable"
+  appointment_id="apt_8821" doctor="[NAME]"
+
+2026-05-24T08:15:01Z INFO app.intake: new patient intake submitted
+  {"first_name": "[NAME]", "last_name": "[NAME]", "dob": "[DOB:year=1978]",
+   "email": "[EMAIL]", "address": {"line1": "[ADDRESS]",
+   "city": "[ADDRESS]", "state": "OR", "zip": "[ZIP]"}, "ssn": "[SSN]",
+   "insurance": {"member_id": "[ACCT]", "group": "G-COMM-001"},
+   "note": "Patient mentioned her sister [NAME] was also a patient here in 2019."}
+
+2026-05-24T08:15:43Z DEBUG app.fax: outbound fax queued
+  recipient_phone="[PHONE]" cover_text="Re: [NAME]'s referral, DOB [DOB:year=1985]"
+
+Redactions:
+| type    | line       | original          | replacement     |
+|---------|------------|-------------------|-----------------|
+| NAME    | 2          | Maria…            | [NAME]          |
+| DOB     | 2          | 1962-04-11        | [DOB:year=1962] |
+| MRN     | 2          | MRN88293…         | [MRN]           |
+| PHONE   | 3          | 415-555-…         | [PHONE]         |
+| NAME    | 4          | Dr. Sanj…         | [NAME]          |
+| NAME    | 7          | James             | [NAME]          |
+| NAME    | 7          | O'Connor          | [NAME]          |
+| DOB     | 7          | 1978-11-30        | [DOB:year=1978] |
+| EMAIL   | 8          | j.oconno…         | [EMAIL]         |
+| ADDRESS | 8          | 742 Ever…         | [ADDRESS]       |
+| ADDRESS | 9          | Springfi…         | [ADDRESS]       |
+| ZIP     | 9          | 97478             | [ZIP]           |
+| SSN     | 9          | 123-45-6789       | [SSN]           |
+| ACCT    | 10         | BCBS-X42…         | [ACCT]          |
+| NAME    | 11         | Anne              | [NAME]          |
+| NAME    | 14         | Sarah Kim         | [NAME]          |
+| DOB     | 14         | 03/14/1985        | [DOB:year=1985] |
+| PHONE   | 14         | +1-503-…          | [PHONE]         |
+
+18 findings across 3 log entries.

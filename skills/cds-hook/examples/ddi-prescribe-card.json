@@ -1,0 +1,63 @@
+{
+  "cards": [
+    {
+      "summary": "Major DDI: aspirin + warfarin (bleeding risk)",
+      "indicator": "warning",
+      "detail": "Co-administration of aspirin and warfarin substantially increases bleeding risk (severity: Major). Consider PPI for GI protection, or replace aspirin with acetaminophen 500 mg as needed for analgesia. Discuss INR monitoring frequency.",
+      "source": {
+        "label": "DDI Registry v3.2 (DrugBank-derived)",
+        "url": "https://example.org/ddi/aspirin-warfarin"
+      },
+      "suggestions": [
+        {
+          "label": "Replace aspirin with acetaminophen 500 mg",
+          "uuid": "11111111-1111-4111-8111-111111111111",
+          "actions": [
+            {
+              "type": "delete",
+              "description": "Cancel the draft aspirin order",
+              "resource": {"resourceType": "MedicationRequest", "id": "med-draft-asa"}
+            },
+            {
+              "type": "create",
+              "description": "Order acetaminophen 500 mg PRN",
+              "resource": {
+                "resourceType": "MedicationRequest",
+                "status": "draft",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                  "coding": [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "161", "display": "acetaminophen 500 MG"}]
+                },
+                "subject": {"reference": "Patient/P123"},
+                "dosageInstruction": [{"text": "1 tablet PO Q6H PRN pain"}]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Continue both; add PPI for GI protection",
+          "uuid": "22222222-2222-4222-8222-222222222222",
+          "actions": [
+            {
+              "type": "create",
+              "resource": {
+                "resourceType": "MedicationRequest",
+                "status": "draft",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                  "coding": [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "7646", "display": "omeprazole 20 MG"}]
+                },
+                "subject": {"reference": "Patient/P123"},
+                "dosageInstruction": [{"text": "1 capsule PO QD"}]
+              }
+            }
+          ]
+        }
+      ],
+      "links": [
+        {"label": "Up-to-date: aspirin-warfarin interactions", "url": "https://www.uptodate.com/contents/...", "type": "absolute"},
+        {"label": "Launch DDI calculator (SMART app)", "url": "https://example.org/ddi-app/launch?context=...", "type": "smart"}
+      ]
+    }
+  ]
+}

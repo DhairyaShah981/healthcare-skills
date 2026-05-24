@@ -1,0 +1,362 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9",
+      "resource": {
+        "resourceType": "Patient",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hospital.example.org/mrn",
+            "value": "SYN-5733A3"
+          }
+        ],
+        "name": [
+          {
+            "family": "Synthea",
+            "given": [
+              "Test"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1961"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37",
+      "resource": {
+        "resourceType": "Encounter",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB"
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "period": {
+          "start": "2026-05-24"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cond-6014997f-4352-42ec-9842-e41f3e6f5b68",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I10",
+              "display": "Essential hypertension"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Essential hypertension"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cond-2a2c2b4a-3705-44a0-88f7-a0d9f04e2a86",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "E11.9",
+              "display": "Type 2 diabetes mellitus"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Type 2 diabetes mellitus"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-6e404521-2801-4654-a6c9-ba14a6b13687",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "314076",
+              "display": "lisinopril 10 MG"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "authoredOn": "2026-05-24"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-a7c63efa-4db7-45c0-a6e6-1b4fdc7bfbe0",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "860975",
+              "display": "metformin hydrochloride 500 MG"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "authoredOn": "2026-05-24"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:vital-f52cbd66-14e6-47c9-8816-caee80a4fc7a",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure panel"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        },
+        "effectiveDateTime": "2026-05-24",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 142.0,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 91.0,
+              "unit": "mmHg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mm[Hg]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:vital-64ab4f40-680f-4232-96a2-0ed8a0536472",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        },
+        "effectiveDateTime": "2026-05-24",
+        "valueQuantity": {
+          "value": 78.0,
+          "unit": "/min",
+          "system": "http://unitsofmeasure.org"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:vital-bcf35bda-be95-4d54-a3a7-a0f9e90461b7",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "39156-5",
+              "display": "BMI"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        },
+        "effectiveDateTime": "2026-05-24",
+        "valueQuantity": {
+          "value": 28.4,
+          "unit": "kg/m2",
+          "system": "http://unitsofmeasure.org"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:lab-eda1fd44-e819-40d0-8894-4a5ed8f80d67",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4548-4",
+              "display": "Hemoglobin A1c"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:patient-e4e95f12-27f4-426e-aff7-8d95a7b517e9"
+        },
+        "encounter": {
+          "reference": "urn:uuid:encounter-9e6051a7-ae58-4ced-bfc6-7fb796e48b37"
+        },
+        "effectiveDateTime": "2026-05-24",
+        "valueQuantity": {
+          "value": 7.2,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org"
+        }
+      }
+    }
+  ]
+}

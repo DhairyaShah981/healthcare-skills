@@ -1,0 +1,33 @@
+{
+  "agent_name": "eva-scheduling-broken",
+  "language": "english",
+  "conversationFlow": {
+    "nodes": [
+      {"id": "n1", "type": "start"},
+      {"id": "n2", "type": "function", "tool_id": "check_availability"},
+      {"id": "n2", "type": "function", "tool_id": "verify_insurance_NOT_DEFINED"}
+    ],
+    "edges": [
+      {"id": "e1", "source_node_id": "n1", "destination_node_id": "n2"},
+      {"id": "e1", "source_node_id": "n2", "destination_node_id": "nNonexistent"}
+    ]
+  },
+  "tools": [
+    {
+      "name": "check_availability",
+      "url": "https://abc123.ngrok.io/availability",
+      "webhook_secret": "sk_live_actualSecretValue",
+      "parameters": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "date": {"type": "string"},
+          "duration_minutes": {"type": "integerz"}
+        }
+      }
+    }
+  ],
+  "post_call_analysis_data": [
+    {"name": "next_appointment", "type": "date"}
+  ]
+}

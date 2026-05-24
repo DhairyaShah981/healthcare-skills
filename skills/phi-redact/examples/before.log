@@ -1,0 +1,14 @@
+2026-05-24T08:14:22Z ERROR app.appointments: failed to confirm appointment
+  patient_name="Maria Hernandez" dob="1962-04-11" mrn="MRN8829340"
+  phone="415-555-0173" reason="Insurance card photo uploaded was unreadable"
+  appointment_id="apt_8821" doctor="Dr. Sanjay Patel"
+
+2026-05-24T08:15:01Z INFO app.intake: new patient intake submitted
+  {"first_name": "James", "last_name": "O'Connor", "dob": "1978-11-30",
+   "email": "j.oconnor@example.com", "address": {"line1": "742 Evergreen Terrace",
+   "city": "Springfield", "state": "OR", "zip": "97478"}, "ssn": "123-45-6789",
+   "insurance": {"member_id": "BCBS-X42-998812", "group": "G-COMM-001"},
+   "note": "Patient mentioned her sister Anne was also a patient here in 2019."}
+
+2026-05-24T08:15:43Z DEBUG app.fax: outbound fax queued
+  recipient_phone="+1-503-555-0102" cover_text="Re: Sarah Kim's referral, DOB 03/14/1985"

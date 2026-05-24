@@ -1,0 +1,16 @@
+diff --git a/app/routes/patients.py b/app/routes/patients.py
+index abcdef1..1234567 100644
+--- a/app/routes/patients.py
++++ b/app/routes/patients.py
+@@ -22,6 +22,15 @@ router = APIRouter(prefix="/patients", tags=["patients"])
+
++@router.get("/{patient_id}")
++def get_patient(patient_id: str, db: Session = Depends(get_db)):
++    patient = db.query(Patient).filter_by(id=patient_id).first()
++    logger.info(f"loaded patient: {patient.first_name} {patient.last_name}, dob={patient.dob}")
++    return patient
++
++@router.post("/{patient_id}/export")
++def export_patient_csv(patient_id: str, db: Session = Depends(get_db)):
++    rows = db.execute(f"SELECT * FROM patients WHERE id = '{patient_id}'").fetchall()
++    return {"csv": "\n".join(",".join(map(str, r)) for r in rows)}

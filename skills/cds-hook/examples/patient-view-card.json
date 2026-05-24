@@ -1,0 +1,60 @@
+{
+  "cards": [
+    {
+      "summary": "Smoking cessation counselling recommended",
+      "indicator": "info",
+      "detail": "This patient's smoking-status observation indicates current daily use. USPSTF grade A recommendation: brief tobacco-cessation counselling at each visit.",
+      "source": {
+        "label": "USPSTF tobacco cessation recommendation 2021",
+        "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions"
+      },
+      "suggestions": [
+        {
+          "label": "Add tobacco cessation counselling order",
+          "uuid": "8a4c1a40-1f29-4d0e-9b5c-f6f7b9b08e02",
+          "actions": [
+            {
+              "type": "create",
+              "description": "ServiceRequest for tobacco cessation counselling",
+              "resource": {
+                "resourceType": "ServiceRequest",
+                "status": "draft",
+                "intent": "proposal",
+                "category": [{"coding": [{"system": "http://snomed.info/sct", "code": "409063005", "display": "Counseling"}]}],
+                "code": {"coding": [{"system": "http://snomed.info/sct", "code": "315230006", "display": "Smoking cessation education"}]},
+                "subject": {"reference": "Patient/P123"}
+              }
+            }
+          ]
+        }
+      ],
+      "links": [
+        {"label": "Clinician quick reference (PDF)", "url": "https://example.org/quickref/tobacco.pdf", "type": "absolute"}
+      ]
+    },
+    {
+      "summary": "Influenza vaccination due",
+      "indicator": "info",
+      "detail": "No influenza immunization recorded in current season. CDC recommendation: annual seasonal influenza vaccine for adults.",
+      "source": {"label": "CDC ACIP 2025-2026"},
+      "suggestions": [
+        {
+          "label": "Order seasonal influenza vaccine",
+          "uuid": "f56d3902-5a17-4f56-bc1f-71d8c7a9b0ee",
+          "actions": [
+            {
+              "type": "create",
+              "resource": {
+                "resourceType": "ServiceRequest",
+                "status": "draft",
+                "intent": "proposal",
+                "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt", "code": "90686", "display": "Influenza vaccine, quadrivalent (IIV4)"}]},
+                "subject": {"reference": "Patient/P123"}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

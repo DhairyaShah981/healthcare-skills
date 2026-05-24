@@ -1,0 +1,29 @@
+name: validate-skills
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run validator
+        run: |
+          chmod +x scripts/validate.sh
+          ./scripts/validate.sh
+
+  smoke-install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ide: [claude-code, cursor, codex, gemini]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dry-run install for ${{ matrix.ide }}
+        run: |
+          chmod +x install.sh
+          mkdir -p "$HOME/.claude" "$HOME/.cursor" "$HOME/.codex" "$HOME/.gemini"
+          ./install.sh --ide ${{ matrix.ide }} --dry-run

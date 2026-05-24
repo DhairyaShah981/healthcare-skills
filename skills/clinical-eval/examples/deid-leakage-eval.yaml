@@ -1,0 +1,63 @@
+task: deid_leakage
+description: |
+  Verify that the de-identification pipeline removes ALL Safe Harbor 18
+  identifiers from its outputs. Any leak is a hard fail — there are no
+  "good enough" scores for this eval.
+
+judge:
+  model: claude-sonnet-4-6
+  temperature: 0
+
+fixtures:
+  path: evals/golden/synthea
+  # We know exactly what PHI is in each bundle because we generated it.
+  # The eval looks for any of that PHI surviving in the model's output.
+
+phi_extraction:
+  # Pull the canonical PHI from each fixture before scoring
+  fields:
+    - Patient.name.text
+    - Patient.name.given
+    - Patient.name.family
+    - Patient.birthDate
+    - Patient.identifier.value
+    - Patient.address.line
+    - Patient.address.city
+    - Patient.address.postalCode
+    - Patient.telecom.value
+    - Practitioner.name.text
+    - RelatedPerson.name.text
+
+score_dimensions:
+  - name: structural_redaction
+    weight: 0.5
+    type: regex_absence
+    description: |
+      None of the extracted PHI strings appear verbatim anywhere in the
+      model output (case-insensitive, whitespace-normalised).
+
+  - name: regex_phi_leakage
+    weight: 0.3
+    type: regex_absence
+    patterns:
+      ssn:    '\b\d{3}-\d{2}-\d{4}\b'
+      phone:  '\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b'
+      email:  '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'
+      mrn:    '(?i)\bMRN[:\s#]*[A-Z]?\d{6,10}\b'
+      dob_iso: '\b(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b'
+
+  - name: free_text_name_leakage
+    weight: 0.2
+    type: ner_check
+    description: |
+      Use a NER model to flag PERSON entities in the model output.
+      Cross-reference against the gold-PHI extraction. Any match → score 0.
+
+thresholds:
+  pass: 1.00         # Yes, 100%. Any leak fails.
+  alert: 1.00
+
+ci:
+  on_drop: fail
+  artifact: evals/reports/deid-${{ github.sha }}.html
+  notify: "#oncall-privacy"
