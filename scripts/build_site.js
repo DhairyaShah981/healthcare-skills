@@ -103,9 +103,12 @@ function oneLine(s) {
   return String(s).replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// Pull version from package.json so site, CLI, and tarball stay aligned.
+const pkgVersion = JSON.parse(fs.readFileSync(path.join(REPO, 'package.json'), 'utf8')).version;
+
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify({
-  version: '0.3.0',
+  version: pkgVersion,
   generated_at: new Date().toISOString(),
   skills,
 }, null, 2));
