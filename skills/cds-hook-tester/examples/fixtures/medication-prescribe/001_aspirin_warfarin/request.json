@@ -1,0 +1,40 @@
+{
+  "hook": "medication-prescribe",
+  "hookInstance": "test-001",
+  "context": {
+    "patientId": "P-TEST",
+    "userId": "Practitioner/TEST",
+    "medications": {
+      "resourceType": "Bundle",
+      "entry": [{
+        "resource": {
+          "resourceType": "MedicationRequest",
+          "medicationCodeableConcept": {
+            "coding": [{
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1191",
+              "display": "aspirin"
+            }]
+          }
+        }
+      }]
+    }
+  },
+  "prefetch": {
+    "active_meds": {
+      "resourceType": "Bundle",
+      "entry": [{
+        "resource": {
+          "resourceType": "MedicationRequest",
+          "medicationCodeableConcept": {
+            "coding": [{
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "11289",
+              "display": "warfarin"
+            }]
+          }
+        }
+      }]
+    }
+  }
+}

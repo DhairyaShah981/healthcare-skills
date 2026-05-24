@@ -15,6 +15,35 @@ jobs:
           chmod +x scripts/validate.sh
           ./scripts/validate.sh
 
+  ts-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pkg: [phi-log-filter, webhook-verify, audit-trail, consent-gate]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: cd ts/${{ matrix.pkg }} && node --test test/smoke.test.js
+
+  cli-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: bash tests/cli.bats
+
+  site-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node scripts/build_site.js
+      - run: test -s docs/site/skills.json
+      - run: node -e "const d=JSON.parse(require('fs').readFileSync('docs/site/skills.json','utf8')); if(d.skills.length<25) throw new Error('skills.json has '+d.skills.length+' entries')"
+
   smoke-install:
     runs-on: ubuntu-latest
     strategy:

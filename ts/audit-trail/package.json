@@ -1,0 +1,10 @@
+{
+  "name": "@healthcare-skills/audit-trail",
+  "version": "0.3.0",
+  "description": "Express-friendly audit decorator that records the fact of every PHI-touching call (no PHI in the row).",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

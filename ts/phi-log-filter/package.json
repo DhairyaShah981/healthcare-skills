@@ -1,0 +1,11 @@
+{
+  "name": "@healthcare-skills/phi-log-filter",
+  "version": "0.3.0",
+  "description": "Continuous PHI scrubbing at the logger boundary (pino + winston).",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

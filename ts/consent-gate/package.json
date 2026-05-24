@@ -1,0 +1,10 @@
+{
+  "name": "@healthcare-skills/consent-gate",
+  "version": "0.3.0",
+  "description": "Express middleware for SMART-on-FHIR scope + per-patient consent verification.",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

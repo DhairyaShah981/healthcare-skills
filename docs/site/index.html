@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>healthcare-skills — 27 skills for healthcare engineering</title>
+  <meta name="description" content="Plug-and-play Claude Code / Cursor / Codex / Gemini skills for healthcare engineering. 27 skills tied to real production incidents.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <h1>healthcare-skills</h1>
+    <p class="tagline">
+      <strong id="count">…</strong> plug-and-play skills for engineers building healthcare and other regulated software.
+      Drops into Claude Code, Cursor, Codex CLI, and Gemini CLI.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/DhairyaShah981/healthcare-skills">View on GitHub</a>
+      <code class="install">git clone https://github.com/DhairyaShah981/healthcare-skills &amp;&amp; ./install.sh</code>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="controls">
+    <input
+      id="q"
+      type="search"
+      autofocus
+      placeholder="Search 27 skills — try ‘hipaa’, ‘fhir’, ‘async’, ‘voice’…"
+      aria-label="Search skills"
+    >
+    <div class="filter-row">
+      <div class="tag-bar" id="tag-bar" aria-label="Filter by tag"></div>
+      <button id="reset" type="button" hidden>Reset</button>
+    </div>
+  </section>
+
+  <section class="results">
+    <p id="status" class="status"></p>
+    <ul id="skills" class="grid"></ul>
+  </section>
+
+  <section class="why">
+    <h2>What's a skill?</h2>
+    <p>
+      A <em>skill</em> is a focused, model-agnostic instruction set the AI loads on demand: when to activate,
+      what to do, references, examples, and (optionally) runnable code.
+      Skills are version-controlled, reviewable in PRs, and portable across IDEs.
+      Every skill in this pack maps to a real production incident — not theoretical advice.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://github.com/DhairyaShah981/healthcare-skills">GitHub</a> ·
+      <a href="https://github.com/DhairyaShah981/healthcare-skills/blob/main/LICENSE">MIT license</a> ·
+      <a href="https://github.com/DhairyaShah981/healthcare-skills/blob/main/CONTRIBUTING.md">Contribute</a>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

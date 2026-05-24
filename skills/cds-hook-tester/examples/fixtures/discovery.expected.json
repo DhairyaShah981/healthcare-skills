@@ -1,0 +1,12 @@
+{
+  "services": [
+    {
+      "hook": "medication-prescribe",
+      "id": "ddi-check-v1"
+    },
+    {
+      "hook": "patient-view",
+      "id": "preventive-care-v1"
+    }
+  ]
+}

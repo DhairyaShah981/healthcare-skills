@@ -1,0 +1,32 @@
+{
+  "name": "healthcare-skills",
+  "version": "0.3.0",
+  "description": "Plug-and-play SKILL.md pack for healthcare engineering — Claude Code / Cursor / Codex / Gemini.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DhairyaShah981/healthcare-skills.git"
+  },
+  "homepage": "https://github.com/DhairyaShah981/healthcare-skills",
+  "bin": {
+    "healthcare-skills": "./bin/healthcare-skills.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "install.sh",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "bash tests/cli.bats",
+    "test:ts": "for d in ts/*/; do (cd $d && node --test test/smoke.test.js); done"
+  },
+  "keywords": [
+    "healthcare", "hipaa", "fhir", "hl7", "phi", "skills",
+    "claude-code", "cursor", "codex-cli", "gemini-cli"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@healthcare-skills/webhook-verify",
+  "version": "0.3.0",
+  "description": "Constant-time HMAC verifiers for Retell, Vapi, Twilio, Stripe, Slack, GitHub, Segment, and generic providers.",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

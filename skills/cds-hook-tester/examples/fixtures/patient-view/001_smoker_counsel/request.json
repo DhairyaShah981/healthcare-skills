@@ -1,0 +1,17 @@
+{
+  "hook": "patient-view",
+  "hookInstance": "test-pv-001",
+  "context": {
+    "patientId": "P-SMOKER",
+    "userId": "Practitioner/TEST"
+  },
+  "prefetch": {
+    "smokingStatus": {
+      "resourceType": "Observation",
+      "status": "final",
+      "code": {"coding": [{"system": "http://loinc.org", "code": "72166-2"}]},
+      "valueCodeableConcept": {"coding": [{"system": "http://snomed.info/sct",
+        "code": "449868002", "display": "Smokes tobacco daily"}]}
+    }
+  }
+}

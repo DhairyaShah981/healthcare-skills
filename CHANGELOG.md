@@ -6,6 +6,40 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-05-24
+
+### Added — 2 more skills (27 total)
+
+- `epic-sandbox-bootstrap` — 12-step Epic on FHIR sandbox onboarding checklist + runnable smoke-test exercising Patient.read / Observation.search / refresh
+- `cds-hook-tester` — golden-fixture regression for a CDS Hooks 1.0 service: discovery check + per-hook subset-match runner
+
+### Added — CLI
+
+- `bin/healthcare-skills.js` — Node, zero-dep, `npx`-installable
+- Subcommands: `list`, `info`, `add`, `add-all`, `search`, `tags`, `doctor`
+- Flags: `--ide`, `--skills-root`, `--dry-run`, `--json`
+- `tests/cli.bats` — 43-assertion bash smoke harness, green in CI
+
+### Added — TypeScript reference impls
+
+- `ts/phi-log-filter` — pino + winston redactor (4 smoke tests)
+- `ts/webhook-verify` — Retell / Vapi / GitHub / Stripe / Slack / Twilio / Segment / generic (9 smoke tests)
+- `ts/audit-trail` — `audited()` wrapper + Express middleware (3 smoke tests)
+- `ts/consent-gate` — SMART scope + FHIR Consent middleware (10 smoke tests)
+- All four use `node --test` (no dependencies)
+
+### Added — Web discovery site
+
+- `docs/site/` — zero-framework static site (HTML + CSS + vanilla JS)
+- `scripts/build_site.js` generates `skills.json` from frontmatter
+- Search across name / description / tags; filter by tag; tier pills
+- GitHub Pages workflow auto-deploys on every push touching skills/
+
+### CI
+
+- `validate-skills.yml` expanded with `ts-smoke`, `cli-smoke`, and `site-build` jobs
+- `pages.yml` builds and deploys the site
+
 ## [0.2.0] — 2026-05-24
 
 ### Added — 8 more skills (25 total)
@@ -20,10 +54,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `phi-log-filter` — continuous PHI-scrubbing processor for structlog / Python logging / loguru / winston / pino
 - `specialty-scaffold` — scaffold a new clinical specialty (cardiology / ENT / GI / derm / peds / women's health / psychiatry / endocrine) on top of a shared base with overrides only
 
-### Tooling
-- README skill index extended to include Tier 3
-- Reference implementations for each skill: SMART OAuth (FastAPI), HMAC verifiers (7 providers), structlog PHI processor, route-fatness AST linter, slug scanner, migration bisect harness, specialty scaffolder
-
 ## [0.1.0] — 2026-05-24
 
 ### Added — 17 skills
@@ -34,28 +64,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `hipaa-review` — review a diff for HIPAA Security Rule violations
 
 **Tier 1 — Core**
-- `clinical-eval` — eval suites for clinical AI outputs (Synthea fixtures + LLM-as-judge)
-- `audit-trail` — `@audited()` decorator + AuditEvent table for patient-data functions
-- `consent-gate` — patient consent verification gate for FastAPI / Express endpoints
-- `deid-vault` — reversible HMAC pseudonymization + leak scanner
-- `hl7-transform` — HL7v2 (ADT / ORU / SIU) ↔ FHIR R4 conversion
-- `cds-hook` — CDS Hooks 1.0 service scaffolding
-- `icd-snomed-map` — ICD-10 / SNOMED-CT / CPT / LOINC / RxNorm crosswalk
+- `clinical-eval`, `audit-trail`, `consent-gate`, `deid-vault`, `hl7-transform`, `cds-hook`, `icd-snomed-map`
 
 **Tier 2 — From real production incidents**
-- `voice-agent-lint` — 17 production-failure rules for Retell / Vapi voice-agent JSONs
-- `alembic-guard` — enforce ≤32-char revision IDs + linear chain
-- `jsonb-pydantic-pair` — every JSONB column needs a matching Pydantic schema
-- `tenant-rls-guard` — detect missing `client_id` predicates in multi-tenant queries
-- `async-blocking-lint` — flag `requests` / `urllib` calls inside `async def`
-- `secrets-placeholder` — placeholder-token + Secret Manager substitution
-- `synthea-fixture` — frozen FHIR test bundles for deterministic evals
+- `voice-agent-lint`, `alembic-guard`, `jsonb-pydantic-pair`, `tenant-rls-guard`, `async-blocking-lint`, `secrets-placeholder`, `synthea-fixture`
 
 ### Tooling
 - `install.sh` — one-command install for Claude Code, Cursor, Codex CLI, Gemini CLI
 - `scripts/validate.sh` — frontmatter linter, run in CI on every PR
 - `.github/workflows/validate-skills.yml` — CI gate
 
-[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/DhairyaShah981/healthcare-skills/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/DhairyaShah981/healthcare-skills/releases/tag/v0.1.0

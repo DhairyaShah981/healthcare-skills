@@ -1,0 +1,8 @@
+{
+  "severity": "critical",
+  "cards": [{
+    "summary": "~aspirin",
+    "indicator": "warning",
+    "detail": "~bleeding"
+  }]
+}
